@@ -31,7 +31,8 @@
 #define DAMPI_DLL_LOCAL
 #endif
 
-#include <cstddef>
+extern "C"
+{
 
 const int AMPI_SUCCESS = 0;
 const int AMPI_ERR_BUFFER = 1;
@@ -115,11 +116,6 @@ typedef IAMPI_Request* AMPI_Request;
 
 struct IAMPI_Status;
 typedef IAMPI_Status* AMPI_Status;
-
-
-
-extern "C"
-{
 
 /*
  * Wrappers
@@ -213,13 +209,13 @@ DAMPI_DLL_PUBLIC  int AMPI_Cancel(AMPI_Request *request);
 //DAMPI_DLL_PUBLIC  int AMPI_Comm_get_parent(AMPI_Comm *parent);
 //DAMPI_DLL_PUBLIC  int AMPI_Comm_group(AMPI_Comm comm, AMPI_Group *group);
 //DAMPI_DLL_PUBLIC  int AMPI_Comm_join(int fd, AMPI_Comm *intercomm);
-//DAMPI_DLL_PUBLIC  int AMPI_Comm_rank(AMPI_Comm comm, int *rank);
+DAMPI_DLL_PUBLIC  int AMPI_Comm_rank(AMPI_Comm comm, int *rank);
 //DAMPI_DLL_PUBLIC  int AMPI_Comm_remote_group(AMPI_Comm comm, AMPI_Group *group);
 //DAMPI_DLL_PUBLIC  int AMPI_Comm_remote_size(AMPI_Comm comm, int *size);
 //DAMPI_DLL_PUBLIC  int AMPI_Comm_set_attr(AMPI_Comm comm, int comm_keyval, void *attribute_val);
 //DAMPI_DLL_PUBLIC  int AMPI_Comm_set_errhandler(AMPI_Comm comm, AMPI_Errhandler errhandler);
 //DAMPI_DLL_PUBLIC  int AMPI_Comm_set_name(AMPI_Comm comm, char *comm_name);
-//DAMPI_DLL_PUBLIC  int AMPI_Comm_size(AMPI_Comm comm, int *size);
+DAMPI_DLL_PUBLIC  int AMPI_Comm_size(AMPI_Comm comm, int *size);
 //DAMPI_DLL_PUBLIC  int AMPI_Comm_spawn(char *command, char **argv, int maxprocs, AMPI_Info info,
 //                                  int root, AMPI_Comm comm, AMPI_Comm *intercomm,
 //                                  int *array_of_errcodes);

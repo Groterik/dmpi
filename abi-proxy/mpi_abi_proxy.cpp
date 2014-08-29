@@ -389,3 +389,21 @@ int AMPI_Waitsome(int incount, AMPI_Request *array_of_requests, int *outcount, i
     }
     return toErr(res);
 }
+
+
+int AMPI_Comm_rank(AMPI_Comm comm, int *rank)
+{
+    MTRACES("[O] Comm_rank");
+    assert(comm);
+    assert(rank);
+    return MPI_Comm_rank(comm->comm, rank);
+}
+
+
+int AMPI_Comm_size(AMPI_Comm comm, int *size)
+{
+    MTRACES("[O] Comm_size");
+    assert(comm);
+    assert(size);
+    return MPI_Comm_size(comm->comm, size);
+}

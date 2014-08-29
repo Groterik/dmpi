@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 
 #Project name
-set(PROJECT mpi-abi-proxy)
+set(PROJECT mpi_abi_proxy)
 
 enable_testing()
 
@@ -21,6 +21,9 @@ option(HAS_LONG_LONG "Support of MPI_LONG_LONG and MPI_UNSIGNED_LONG_LONG types"
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 
 find_package(MPI REQUIRED)
+find_package(SWIG REQUIRED)
+INCLUDE(${SWIG_USE_FILE})
+
 
 if(MPI_INCLUDE_PATH)
     include_directories(${MPI_INCLUDE_PATH})
@@ -47,7 +50,13 @@ target_link_libraries(${PROJECT} ${MPI_LIBRARY} ${MPI_EXTRA_LIBRARY} ${MPI_CXX_L
 
 set_property(TARGET ${PROJECT} PROPERTY PUBLIC_HEADER mpi_abi_proxy.h)
 
-install(TARGETS ${PROJECT}
+SET(CMAKE_SWIG_FLAGS "-d2")
+SET_SOURCE_FILES_PROPERTIES(swig.i PROPERTIES CPLUSPLUS ON)
+SET_SOURCE_FILES_PROPERTIES(swig.i PROPERTIES SWIG_FLAGS "-includeall")
+SWIG_ADD_MODULE(${PROJECT}_swig d swig.i)
+SWIG_LINK_LIBRARIES(${PROJECT}_swig ${PROJECT})
+
+install(TARGETS ${PROJECT} ${PROJECT}_swig
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
